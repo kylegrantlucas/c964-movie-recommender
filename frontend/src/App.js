@@ -16,7 +16,7 @@ function App() {
     try {
       const movieDetailsResponses = await Promise.all(
         imdbIDs.map(imdbID => 
-          axios.get(`http://www.omdbapi.com/?i=${imdbID}&apikey=${process.env.REACT_APP_OMDB_API_KEY}`)
+          axios.get(`https://www.omdbapi.com/?i=${imdbID}&apikey=${process.env.REACT_APP_OMDB_API_KEY}`)
         )
       );
       return movieDetailsResponses.map(response => response.data);

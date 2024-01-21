@@ -12,7 +12,7 @@ features: pd.DataFrame
 
 def initialize():
     global data, knn, features  # Add the global keyword to indicate that "data" is a global variable
-    data = pd.read_csv('./data/imdb.csv')
+    data = pd.read_csv('https://raw.githubusercontent.com/kylegrantlucas/c964-movie-recommender/main/backend/data/imdb.csv')
     # Assuming 'data' is your DataFrame
     df = data.copy()  # Work with a copy to avoid SettingWithCopyWarning
 
@@ -64,7 +64,7 @@ def recommend_movies(user_input: str):
 
 def create_app():
     app = Flask(__name__)
-    CORS(app, resources={r"/recommendations": {"origins": "http://localhost:3000"}})
+    CORS(app, resources={r"/recommendations": {"origins": ["http://localhost:3000", "https://c964-frontend.fly.dev"]}})
 
 
     with app.app_context():
