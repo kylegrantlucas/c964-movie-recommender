@@ -15,53 +15,7 @@ class Recommender:
         self.data = self.preprocess_data(data)
         self.features = self.generate_features()
         self.knn = self.train_model()
-    
-    def model_precision(self):
-        y_true = [0, 1, 2, 0, 1, 2]
-        y_pred = [0, 2, 1, 0, 0, 1]
 
-        # Calculate precision
-        precision = precision_score(y_true, y_pred, average='micro')
-        
-        return precision
-
-    def model_recall(self):
-        y_true = [0, 1, 2, 0, 1, 2]
-        y_pred = [0, 2, 1, 0, 0, 1]
-
-        # Calculate recall
-        recall = recall_score(y_true, y_pred, average='micro')
-        
-        return recall
-    
-    # def model_f1_score(self):
-    #     y_true = [0, 1, 2, 0, 1, 2]
-    #     y_pred = [0, 2, 1, 0, 0, 1]
-
-    #     # Calculate F1 score
-    #     precision: Float = self.model_precision()
-    #     recall = self.model_recall()
-        
-    #     f1 = 2 * (precision * recall) / (precision + recall)
-        
-    #     return f1
-    
-    def f1_score(self, true_recommendations: list, recommended_movies: list) -> float:
-        # convert to sets
-        true_recommendations_set = set(true_recommendations)
-        recommended_movies_set = set(recommended_movies)
-        
-        # Calculate precision and recall
-        tp = len(true_recommendations_set.intersection(recommended_movies_set))
-        precision = tp / len(recommended_movies_set)
-        recall = tp / len(true_recommendations_set)
-        
-        """A function to calculate the F1 score"""
-         # Calculate average precision, recall, and F1 score
-        f1 = 2 * (precision * recall) / (precision + recall)
-
-        return f1
-        
     def preprocess_data(self, data: pd.DataFrame) -> pd.DataFrame:
         df = data.copy() # Work with a copy to avoid SettingWithCopyWarning
 
