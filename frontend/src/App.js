@@ -16,7 +16,12 @@ function App() {
     try {
       const movieDetailsResponses = await Promise.all(
         imdbIDs.map(imdbID => 
-          axios.get(`http://www.omdbapi.com/?i=${imdbID}&apikey=${process.env.REACT_APP_OMDB_API_KEY}`)
+          // handle timeout appropriately, skip the movie if it takes too long to respond
+          axios.get(`https://www.omdbapi.com/?i=${imdbID}&apikey=${process.env.REACT_APP_OMDB_API_KEY}`, { params: { imdbID }, timeout: 3000 })
+            .catch(error => {
+              console.error('Error fetching movie details:', error);
+              return { data: null };
+            })
         )
       );
       return movieDetailsResponses.map(response => response.data);
